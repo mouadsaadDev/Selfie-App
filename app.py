@@ -7,6 +7,7 @@ from io import BytesIO
 from keras.models import load_model
 from openpyxl.styles import PatternFill
 from urllib.parse import urlparse
+import base64
 
 # Function to check if a URL is valid
 def is_valid_url(url):
