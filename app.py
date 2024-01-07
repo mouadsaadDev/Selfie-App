@@ -62,6 +62,17 @@ def color_lines_non_selfie(file_path, model):
     workbook.save(modified_file_path)
     st.success(f"Selfie check completed. Check '{modified_file_path}' for results.")
 
+    # Provide download link for the modified file
+    st.markdown(get_binary_file_downloader_html(modified_file_path, 'Modified File'), unsafe_allow_html=True)
+
+# Function to create a download link for a file
+def get_binary_file_downloader_html(bin_file, file_label='File'):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    bin_str = base64.b64encode(data).decode()
+    href = f'<a href="data:application/octet-stream;base64,{bin_str}" download="{bin_file}" target="_blank">{file_label}</a>'
+    return href
+
 # Streamlit app
 def main():
     st.title("Selfie Checker Web App")
