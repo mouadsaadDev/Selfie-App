@@ -1,6 +1,6 @@
 streamlit
 openpyxl
-cv2
+opencv-python
 numpy
 requests
 io
