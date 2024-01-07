@@ -3,7 +3,6 @@ openpyxl
 opencv-python
 numpy
 requests
-io
 keras
 openpyxl
 urllib
