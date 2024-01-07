@@ -1,0 +1,9 @@
+streamlit
+openpyxl
+cv2
+numpy
+requests
+io
+keras
+openpyxl
+urllib
