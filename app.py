@@ -8,7 +8,6 @@ from keras.models import load_model
 from openpyxl.styles import PatternFill
 from urllib.parse import urlparse
 import base64
-from PIL import Image
 
 # Function to check if a URL is valid
 def is_valid_url(url):
@@ -64,14 +63,23 @@ def color_lines_non_selfie(file_path, model):
     workbook.save(modified_file_path)
     st.success(f"Selfie check completed. Check '{modified_file_path}' for results.")
 
+    # Provide download link for the modified file
+    st.markdown(get_binary_file_downloader_html(modified_file_path, 'Modified File'), unsafe_allow_html=True)
+
+# Function to create a download link for a file
+def get_binary_file_downloader_html(bin_file, file_label='File'):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    bin_str = base64.b64encode(data).decode()
+    href = f'<a href="data:application/octet-stream;base64,{bin_str}" download="{bin_file}" target="_blank">{file_label}</a>'
+    return href
+
 # Streamlit app
 def main():
-    st.title("SMOLLAN")
-    st.header("Welcome to SMOLLAN APPLICATION FOR CHECKS")
-    st.subheader("Upload an Excel file to perform a selfie check.")
+    st.title("Selfie Checker Web App")
 
     # File upload
-    uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
+    uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx", "xls"])
 
     if uploaded_file is not None:
         try:
